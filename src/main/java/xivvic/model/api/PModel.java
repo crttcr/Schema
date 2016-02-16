@@ -1,17 +1,21 @@
-package xivvic.schema.model;
+package xivvic.model.api;
 
 import java.util.function.Function;
 
 /*
  * This class represents metadata about a single property.
  * 
+ * It does not extend the ModelElement interface because other model elements
+ * are 
+ * 
  */
 
-public interface PropertySchema
+public interface PModel
+	extends ModelElement
 {
 	public String name();
 	public String key();
-	public Class<?> type();
+	public PType modelElementType();
 	public boolean unique();
 	public boolean required();
 	

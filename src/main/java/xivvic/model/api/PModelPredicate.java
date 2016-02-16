@@ -1,22 +1,33 @@
-package xivvic.schema.model;
+package xivvic.model.api;
 
 
 import java.util.function.Predicate;
 
-public interface PropertySchemaPredicate
-	extends Predicate<PropertySchema>
+public interface PModelPredicate
+	extends Predicate<PModel>
 {
+	// Predicate which always returns true
+	//
+	PModelPredicate TRUE = new PModelPredicate()
+	{
+		@Override
+		public boolean test(PModel t)
+		{
+			return true;
+		}
+	};
+
 	/**
 	 * Returns a function that will produce a predicate that returns true when a property is required.
 	 * 
 	 * @return a function that tests a property definition to determine if it is required.
 	 */
-	static PropertySchemaPredicate predicateRequired()
+	static PModelPredicate predicateRequired()
 	{
-		PropertySchemaPredicate p = new PropertySchemaPredicate()
+		PModelPredicate p = new PModelPredicate()
 		{
 			@Override
-			public boolean test(PropertySchema t)
+			public boolean test(PModel t)
 			{
 				if (t == null)
 					return false;
@@ -36,12 +47,12 @@ public interface PropertySchemaPredicate
 	 * 
 	 * @return a function that tests a property definition to determine if each value must be unique.
 	 */
-	static PropertySchemaPredicate predicateUnique()
+	static PModelPredicate predicateUnique()
 	{
-		PropertySchemaPredicate p = new PropertySchemaPredicate()
+		PModelPredicate p = new PModelPredicate()
 		{
 			@Override
-			public boolean test(PropertySchema t)
+			public boolean test(PModel t)
 			{
 				if (t == null)
 					return false;

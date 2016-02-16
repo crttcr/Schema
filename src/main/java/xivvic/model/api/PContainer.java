@@ -1,22 +1,30 @@
-package xivvic.schema.model;
+package xivvic.model.api;
 
 import java.util.List;
-/**
- * This class is used to define a the type of a Vertex which 
- * represents an entity. The Vertex represents the entity so this
- * VertexSchema is analogous to a class definition for the entity.
- * 
- * The schema consists of a Type and a Set of properties
- * 
- * @author Reid
- *
- */
-public interface VertexSchema
-{
-	public VertexType type();
-	public List<String> propertyNames();
-	public List<String> propertyKeys();
 
+/**
+ * This interface represents model elements that act as a property container.
+ * A property container is a model element that can be associated with properties.
+ * 
+ * @author reid.dev
+ */
+
+public interface PContainer
+{
+	/**
+	 * Lists all the names of all the properties for a model element.
+	 * 
+	 * @return a list containing the names of all the properties for this element.
+	 */
+	public List<String> propertyNames();
+	
+	/**
+	 * Lists all the names of all the keys for a model element.
+	 * 
+	 * @return a list containing the names of all the properties for this element.
+	 */
+	public List<String> propertyKeys();
+	
 	/**
 	 * Returns the property definition associated with the provided key.
 	 * 
@@ -26,7 +34,7 @@ public interface VertexSchema
 	 * @param key
 	 * @return the definition for the property.
 	 */
-	public PropertySchema property(String key);
+	public PModel property(String key);
 	
 	/**
 	 * Returns the property definitions for which the given predicate evaluates to true.
@@ -37,6 +45,5 @@ public interface VertexSchema
 	 * 
 	 * @return all the predicates that evaluate to true, or all properties if predicate is null
 	 */
-	public List<PropertySchema> properties(PropertySchemaPredicate predicate);
-
+	public List<PModel> properties(PModelPredicate predicate);
 }

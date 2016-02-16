@@ -1,14 +1,19 @@
-package xivvic.schema.model;
+package xivvic.model.ri;
 
 
 import java.util.HashMap;
 import java.util.Map;
 
+import xivvic.model.api.EModel;
+import xivvic.model.api.EType;
+import xivvic.model.api.RModel;
+import xivvic.model.api.RType;
+
 public class SchemaManagerBasic
-//	implements SchemaManager
+//	implements ModelManager
 {
-	private Map<EdgeType, EdgeSchema> edges = new HashMap<>();
-	private Map<VertexType, VertexSchema> entities = new HashMap<>();
+	private Map<RType, RModel> edges = new HashMap<>();
+	private Map<EType, EModel> entities = new HashMap<>();
 	private static SchemaManagerBasic INSTANCE = new SchemaManagerBasic();
 	
 /*
@@ -17,25 +22,25 @@ public class SchemaManagerBasic
 		init();
 	}
 	
-	public static SchemaManager getInstance()
+	public static ModelManager getInstance()
 	{
 		return INSTANCE;
 	}
 
 	@Override
-	public List<VertexType> entityTypes()
+	public List<EType> entityTypes()
 	{
-		return new ArrayList<VertexType>(entities.keySet());
+		return new ArrayList<EType>(entities.keySet());
 	}
 
 	@Override
-	public List<VertexSchema> entityDescriptors()
+	public List<EModel> entityDescriptors()
 	{
-		return new ArrayList<VertexSchema>(entities.values());
+		return new ArrayList<EModel>(entities.values());
 	}
 
 	@Override
-	public EdgeSchema getEdgeSchema(EdgeType type)
+	public RModel getEdgeSchema(RType type)
 	{
 		if (type == null)
 			return null;
@@ -44,7 +49,7 @@ public class SchemaManagerBasic
 	}
 
 	@Override
-	public VertexSchema getEntitySchema(VertexType type)
+	public EModel getEntitySchema(EType type)
 	{
 		if (type == null)
 			return null;
@@ -66,18 +71,18 @@ public class SchemaManagerBasic
 
 	private void buildEdges()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 
 		// Don't have any edge properties defined at the moment
-		// Except for Type on address
+		// Except for ModelElementType on address
 		//
-		VertexType[] edge_types = VertexType.values();
+		EType[] edge_types = EType.values();
 		
-		for (VertexType e_type : edge_types)
+		for (EType e_type : edge_types)
 		{
-			if (e_type == VertexType.PERSON_ADDRESS)
+			if (e_type == EType.PERSON_ADDRESS)
 			{
-				PropertySchema a = PropertySchemaBase.builder()
+				PModel a = PModelStatic.builder()
 						.type(String.class)
 						.name("type")
 						.key("address_type")
@@ -85,14 +90,14 @@ public class SchemaManagerBasic
 						.required(true)
 						.build();
 
-				List<PropertySchema> a_list = new ArrayList<>();
+				List<PModel> a_list = new ArrayList<>();
 				a_list.add(a);
-				EdgeSchema es = new EdgeSchemaImpl(e_type, a_list);
+				RModel es = new RModelStatic(e_type, a_list);
 				edges.put(e_type, es);
 				continue;
 			}
 
-			EdgeSchema schema = new EdgeSchemaImpl(e_type, p_list);
+			RModel schema = new RModelStatic(e_type, p_list);
 			
 			edges.put(e_type, schema);
 		}
@@ -100,44 +105,44 @@ public class SchemaManagerBasic
 	
 	private void buildAddress()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 		
-		PropertySchema a = PropertySchemaBase.builder()
+		PModel a = PModelStatic.builder()
 				.type(String.class)
 				.name("id")
 				.key("address_id")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema b = PropertySchemaBase.builder()
+		PModel b = PModelStatic.builder()
 				.type(String.class)
 				.name("line one")
 				.key("address_line_one")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema c = PropertySchemaBase.builder()
+		PModel c = PModelStatic.builder()
 				.type(String.class)
 				.name("line two")
 				.key("address_line_two")
 				.unique(false)
 				.required(false)
 				.build();
-		PropertySchema d = PropertySchemaBase.builder()
+		PModel d = PModelStatic.builder()
 				.type(String.class)
 				.name("city")
 				.key("address_city")
 				.unique(false)
 				.required(false)
 				.build();
-		PropertySchema e = PropertySchemaBase.builder()
+		PModel e = PModelStatic.builder()
 				.type(String.class)
 				.name("state")
 				.key("address_state")
 				.unique(false)
 				.required(false)
 				.build();
-		PropertySchema f = PropertySchemaBase.builder()
+		PModel f = PModelStatic.builder()
 				.type(String.class)
 				.name("zip")
 				.key("address_zip")
@@ -152,44 +157,44 @@ public class SchemaManagerBasic
 		p_list.add(e);
 		p_list.add(f);
 		
-		VertexSchema schema = new VertexSchemaImmutable(VertexType.ADDRESS, p_list);
+		EModel schema = new EModelStatic(EType.ADDRESS, p_list);
 		
 		entities.put(Address.class, schema);
 	}
 
 	private void buildEvent()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 		
-		PropertySchema a = PropertySchemaBase.builder()
+		PModel a = PModelStatic.builder()
 				.type(String.class)
 				.name("id")
 				.key("event_id")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema b = PropertySchemaBase.builder()
+		PModel b = PModelStatic.builder()
 				.type(String.class)
 				.name("type")
 				.key("event_type")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema c = PropertySchemaBase.builder()
+		PModel c = PModelStatic.builder()
 				.type(String.class)
 				.name("text")
 				.key("event_text")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema d = PropertySchemaBase.builder()
+		PModel d = PModelStatic.builder()
 				.type(String.class)
 				.name("date")
 				.key("event_date")
 				.unique(false)
 				.required(false)
 				.build();
-		PropertySchema e = PropertySchemaBase.builder()
+		PModel e = PModelStatic.builder()
 				.type(String.class)
 				.name("time")
 				.key("event_time")
@@ -203,23 +208,23 @@ public class SchemaManagerBasic
 		p_list.add(d);
 		p_list.add(e);
 		
-		VertexSchema schema = new VertexSchemaImmutable(VertexType.EVENT, p_list);
+		EModel schema = new EModelStatic(EType.EVENT, p_list);
 		
 		entities.put(Event.class, schema);
 	}
 
 //	private void buildGroup()
 //	{
-//		List<PropertySchema> p_list = new ArrayList<>();
+//		List<PModel> p_list = new ArrayList<>();
 //		
-//		PropertySchema a = PropertySchemaBase.builder()
+//		PModel a = PModelStatic.builder()
 //				.type(String.class)
 //				.name("id")
 //				.key("group_id")
 //				.unique(true)
 //				.required(true)
 //				.build();
-//		PropertySchema b = PropertySchemaBase.builder()
+//		PModel b = PModelStatic.builder()
 //				.type(String.class)
 //				.name("name")
 //				.key("group_name")
@@ -237,16 +242,16 @@ public class SchemaManagerBasic
 
 	private void buildSubscription()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 		
-		PropertySchema a = PropertySchemaBase.builder()
+		PModel a = PModelStatic.builder()
 				.type(String.class)
 				.name("id")
 				.key("subs_id")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema b = PropertySchemaBase.builder()
+		PModel b = PModelStatic.builder()
 				.type(String.class)
 				.name("expiry")
 				.key("subs_expiry")
@@ -257,44 +262,44 @@ public class SchemaManagerBasic
 		p_list.add(a);
 		p_list.add(b);
 		
-		VertexSchema schema = new VertexSchemaImmutable(VertexType.SUBSCRIPTION, p_list);
+		EModel schema = new EModelStatic(EType.SUBSCRIPTION, p_list);
 		
 		entities.put(Subscription.class, schema);
 	}
 
 	private void buildUser()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 		
-		PropertySchema a = PropertySchemaBase.builder()
+		PModel a = PModelStatic.builder()
 				.type(String.class)
 				.name("id")
 				.key("user_id")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema b = PropertySchemaBase.builder()
+		PModel b = PModelStatic.builder()
 				.type(String.class)
 				.name("email")
 				.key("user_email")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema c = PropertySchemaBase.builder()
+		PModel c = PModelStatic.builder()
 				.type(String.class)
 				.name("user name")
 				.key("user_username")
 				.unique(true)
 				.required(true)
 				.build();
-		PropertySchema d = PropertySchemaBase.builder()
+		PModel d = PModelStatic.builder()
 				.type(String.class)
 				.name("password hash")
 				.key("user_passhash")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema e = PropertySchemaBase.builder()
+		PModel e = PModelStatic.builder()
 				.type(String.class)
 				.name("salt")
 				.key("user_salt")
@@ -308,7 +313,7 @@ public class SchemaManagerBasic
 		p_list.add(d);
 		p_list.add(e);
 		
-		VertexSchema schema = new VertexSchemaImmutable(VertexType.USER, p_list);
+		EModel schema = new EModelStatic(EType.USER, p_list);
 		
 		entities.put(User.class, schema);
 	}
@@ -316,9 +321,9 @@ public class SchemaManagerBasic
 
 	private void buildPerson()
 	{
-		List<PropertySchema> p_list = new ArrayList<>();
+		List<PModel> p_list = new ArrayList<>();
 		
-		PropertySchema a = PropertySchemaBase.builder()
+		PModel a = PModelStatic.builder()
 				.type(String.class)
 				.name("id")
 				.key("person_id")
@@ -326,28 +331,28 @@ public class SchemaManagerBasic
 				.required(true)
 				.build();
 
-		PropertySchema b = PropertySchemaBase.builder()
+		PModel b = PModelStatic.builder()
 				.type(String.class)
 				.name("first name")
 				.key("person_name_first")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema c = PropertySchemaBase.builder()
+		PModel c = PModelStatic.builder()
 				.type(String.class)
 				.name("last name")
 				.key("person_name_last")
 				.unique(false)
 				.required(true)
 				.build();
-		PropertySchema d = PropertySchemaBase.builder()
+		PModel d = PModelStatic.builder()
 				.type(String.class)
 				.name("middle name")
 				.key("person_name_middle")
 				.unique(false)
 				.required(false)
 				.build();
-		PropertySchema e = PropertySchemaBase.builder()
+		PModel e = PModelStatic.builder()
 				.type(String.class)
 				.name("nickname")
 				.key("person_nickname")
@@ -361,7 +366,7 @@ public class SchemaManagerBasic
 		p_list.add(d);
 		p_list.add(e);
 		
-		VertexSchema schema = new VertexSchemaImmutable(VertexType.PERSON, p_list);
+		EModel schema = new EModelStatic(EType.PERSON, p_list);
 		
 		entities.put(Person.class, schema);
 	}
