@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import xivvic.model.api.PModel;
 import xivvic.model.api.PType;
-import xivvic.model.ri.TextFixtureUtil.PropertyType;
+import xivvic.model.ri.TestFixtureUtil.PropertyType;
 
 public class PModelStaticTest
 {
