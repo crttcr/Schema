@@ -14,7 +14,7 @@ public abstract class ModelBase
 	
    public ModelBase(ModelElementType type)
    {
-   	Objects.requireNonNull(type, "Non-null modelElementType required for schema");
+   	Objects.requireNonNull(type, "Non-null modelElementType required for model instances.");
    	
    	this.type   = type;
    }
