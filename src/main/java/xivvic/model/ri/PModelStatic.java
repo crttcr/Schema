@@ -1,6 +1,7 @@
 package xivvic.model.ri;
 
 
+import java.util.Objects;
 import java.util.function.Function;
 
 import xivvic.model.api.PModel;
@@ -81,18 +82,25 @@ public class PModelStatic
 		
 		public Builder name(String name)
 		{
+			Objects.requireNonNull(name, "PModel.name cannot not be null");
 			this.instance.name = name;
 			return this;
 		}
 		
 		public Builder key(String key)
 		{
+			Objects.requireNonNull(key, "PModel.key cannot not be null");
 			this.instance.key = key;
 			return this;
 		}
 		
 		public PModelStatic build()
 		{
+			Objects.requireNonNull(instance.name, "PModel.name, a required field, was not provided during construction.");
+			
+			if (instance.key == null)
+				instance.key = instance.name;
+			
 			return instance;
 		}
 	}
