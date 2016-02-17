@@ -45,11 +45,11 @@ public class PContainerStatic
 	}
 
 	/**
-	 * Returns all the schemas which pass the test. If the test parameter
-	 * is null, this method will return all schemas.
+	 * Returns all the property models which pass the test. If the test parameter
+	 * is null, this method will return all property models.
 	 * 
 	 * @param test optional filter predicate
-	 * @return schemas which pass the filter or all schemas if filter is null
+	 * @return schemas which pass the filter or all property models if filter is null
 	 */
 	public List<PModel> properties(PModelPredicate test)
 	{
@@ -62,9 +62,17 @@ public class PContainerStatic
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Returns the single property with a key matching the parameter, if it
+	 * exists. If such a property doesn't exist, this method returns null.
+	 * 
+	 * @throws IllegalArgumentException if the requested key is null.
+	 * 
+	 * @return The model for the property with the given key or null if it's not found.
+	 */
 	public PModel property(String key)
 	{
-		if (key ==null)
+		if (key == null)
 		{
 			throw new IllegalArgumentException("Asking for a null property makes no sense.");
 		}
@@ -72,8 +80,8 @@ public class PContainerStatic
 		PModel p = properties.get(key);
 		if (p == null)
 		{
-			String msg = String.format("Unable to locate property definition for key [%s].", key);
-			throw new IllegalArgumentException(msg);
+			// String msg = String.format("Unable to locate property definition for key [%s].", key);
+			return null;
 		}
 		
 		return p;
