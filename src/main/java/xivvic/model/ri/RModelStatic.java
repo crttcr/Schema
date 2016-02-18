@@ -1,6 +1,8 @@
 package xivvic.model.ri;
 
 
+import java.util.Objects;
+
 import xivvic.model.api.ModelElement;
 import xivvic.model.api.PContainer;
 import xivvic.model.api.RModel;
@@ -31,7 +33,7 @@ public class RModelStatic
 	private boolean multipleInbound;
 	private boolean singleInstanceBetweenEndpoints;
 
-   public RModelStatic(RType type, PContainer pc)
+   private RModelStatic(RType type, PContainer pc)
    {
    	super(type, pc);
    }
@@ -57,13 +59,17 @@ public class RModelStatic
 		
       public Builder     from(ModelElement e)
       {
+			Objects.requireNonNull(e,   "Constructing a relationship requires a 'from' model element. Null was provided.");
+
       	this.instance.from = e;
       	return this;
       }
 
       public Builder     to(ModelElement e)
       {
-      	this.instance.to = e;
+			Objects.requireNonNull(e,   "Constructing a relationship requires a 'to' model element. Null was provided.");
+
+			this.instance.to = e;
       	return this;
       }
 
@@ -93,6 +99,9 @@ public class RModelStatic
 		
 		public RModelStatic build()
 		{
+			Objects.requireNonNull(instance.to,   "Constructing a relationship requires a 'to' model element");
+			Objects.requireNonNull(instance.from, "Constructing a relationship requires a 'from' model element");
+
 			return instance;
 		}
 	}

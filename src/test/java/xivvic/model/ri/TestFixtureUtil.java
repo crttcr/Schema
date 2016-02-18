@@ -1,8 +1,15 @@
 package xivvic.model.ri;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import xivvic.model.api.DType;
+import xivvic.model.api.EModel;
 import xivvic.model.api.EType;
+import xivvic.model.api.PContainer;
 import xivvic.model.api.PModel;
 import xivvic.model.api.PType;
+import xivvic.model.api.RModel;
 import xivvic.model.api.RType;
 
 public class TestFixtureUtil
@@ -34,6 +41,25 @@ public class TestFixtureUtil
 		INTEGER,
 		DATE,
 	}
+
+	public enum DocumentType
+	implements DType
+	{
+		IMAGE,
+		ARCHIVE,
+	}
+
+	public static List<PModel> build3PropertyList()
+	{
+		List<PModel> list = new ArrayList<>();
+		
+		list.add(TestFixtureUtil.buildIdProperty());
+		list.add(TestFixtureUtil.buildNameProperty());
+		list.add(TestFixtureUtil.buildColorProperty());
+		
+		return list;
+	}
+
 	
 	public static PModel buildNameProperty()
 	{
@@ -41,6 +67,7 @@ public class TestFixtureUtil
 		
 		PModelStatic.Builder builder =  PModelStatic.builder(type);
 		builder.name(PROP_NAME_NAME);
+		builder.key(PROP_NAME_NAME);
 		builder.required(true);
 		
 		PModel model = builder.build();
@@ -53,6 +80,7 @@ public class TestFixtureUtil
 		
 		PModelStatic.Builder builder =  PModelStatic.builder(type);
 		builder.name(PROP_ID_NAME);
+		builder.key(PROP_ID_NAME);
 		builder.required(true);
 		builder.unique(true);
 		
@@ -66,12 +94,123 @@ public class TestFixtureUtil
 		
 		PModelStatic.Builder builder =  PModelStatic.builder(type);
 		builder.name(PROP_COLOR_NAME);
+		builder.key(PROP_COLOR_NAME);
 		builder.required(false);
 		builder.unique(false);
 		
 		PModel model = builder.build();
 		return model;
 	}
+	
+	public static EModel buildEmptyEntityModel(EType type)
+	{
+		List<PModel>    list = new ArrayList<>();
+		PContainer container = new PContainerStatic(list);
+		EModel         model = new EModelStatic(type, container, null);
+		
+		return model;
+	}
+	
+	
+	public static EModel buildUserEntity()
+	{
+		List<PModel> list = new ArrayList<>();
+		
+		PModel a = PModelStatic.builder(PropertyType.STRING)
+				.name("id")
+				.key("user_id")
+				.unique(true)
+				.required(true)
+				.build();
+		PModel b = PModelStatic.builder(PropertyType.STRING)
+				.name("email")
+				.key("user_email")
+				.unique(true)
+				.required(true)
+				.build();
+		PModel c = PModelStatic.builder(PropertyType.STRING)
+				.name("user name")
+				.key("user_username")
+				.unique(true)
+				.required(true)
+				.build();
+		PModel d = PModelStatic.builder(PropertyType.STRING)
+				.name("password hash")
+				.key("user_passhash")
+				.unique(false)
+				.required(true)
+				.build();
+		PModel e = PModelStatic.builder(PropertyType.STRING)
+				.name("salt")
+				.key("user_salt")
+				.unique(false)
+				.required(false)
+				.build();
+			
+		list.add(a);
+		list.add(b);
+		list.add(c);
+		list.add(d);
+		list.add(e);
+		
+		PContainer pc = new PContainerStatic(list);
+		EModel  model = new EModelStatic(EntityType.USER, pc, a);
+		
+		return model;
+	}
+
+	public static EModel buildGroupEntity()
+	{
+		
+		PModel a = PModelStatic.builder(PropertyType.STRING)
+				.name("id")
+				.key("group_id")
+				.unique(true)
+				.required(true)
+				.build();
+
+		PModel b = PModelStatic.builder(PropertyType.STRING)
+				.name("name")
+				.key("group_name")
+				.unique(true)
+				.required(true)
+				.build();
+			
+		List<PModel> list = new ArrayList<>();
+		list.add(a);
+		list.add(b);
+		
+		PContainer pc = new PContainerStatic(list);
+		EModel  model = new EModelStatic(EntityType.GROUP, pc, a);
+		
+		return model;
+	}
+
+
+	public static RModel buildUser2GroupRel()
+	{
+		EModel u = buildUserEntity();
+		EModel g = buildGroupEntity();
+		
+		PModel color_prop = buildColorProperty();
+		List<PModel> list = new ArrayList<>();
+		list.add(color_prop);
+		
+		PContainer pc = new PContainerStatic(list);
+		RType  r_type = RelationshipType.USER_2_GROUP;
+
+		RModelStatic.Builder builder = RModelStatic.builder(r_type, pc);
+
+		builder.from(u);
+		builder.to(g);
+
+		RModel rel = builder.build();
+		
+		return rel;
+	}
+
+
+	
 
 /*	
 	public static  List<EModel> buildGroups()

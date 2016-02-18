@@ -8,7 +8,7 @@ import java.util.List;
  * managing object which maintains the state of the model.
  * 
  * This manager would be the access mechanism for the code to acquire
- * information abou the domain model.
+ * information about the domain model.
  * 
  * @author Reid
  *
@@ -19,7 +19,7 @@ public interface ModelManager
 //
 // public List<EType> eTypes();
 
-	public List<EModel> eModels();
+	public List<EModel> entityModels();
 	public DModel getDModel(DType type);
 	public EModel getEModel(EType type);
 	public RModel getRModel(RType type);
