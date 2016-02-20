@@ -1,6 +1,7 @@
 package xivvic.model.api;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This interface represents model elements that act as a property container.
@@ -46,4 +47,12 @@ public interface PContainer
 	 * @return all the predicates that evaluate to true, or all properties if predicate is null
 	 */
 	public List<PModel> properties(PModelPredicate predicate);
+	
+	/**
+	 * Returns the property definitions for all required properties. This is a convenience
+	 * method that calls properties(test) with an IsRequired predicate.
+	 * 
+	 * @return all required property models or an empty set if there are none.
+	 */
+	public Set<PModel> requiredProperties();
 }

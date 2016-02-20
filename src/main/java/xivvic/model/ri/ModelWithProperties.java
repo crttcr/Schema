@@ -3,6 +3,7 @@ package xivvic.model.ri;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import xivvic.model.api.ModelElementType;
 import xivvic.model.api.PContainer;
@@ -48,6 +49,11 @@ public abstract class ModelWithProperties
 	public List<PModel> properties(PModelPredicate test)
 	{
 		return pc.properties(test);
+	}
+
+	public Set<PModel> requiredProperties()
+	{
+		return pc.requiredProperties();
 	}
 
 	@Override

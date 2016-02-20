@@ -4,6 +4,7 @@ package xivvic.model.ri;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import xivvic.model.api.PContainer;
@@ -60,6 +61,17 @@ public class PContainerStatic
 				.stream()
 				.filter(test)
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Set<PModel> requiredProperties()
+	{
+		PModelPredicate filter = new PropertyRequired();
+			
+		return properties.values()
+				.stream()
+				.filter(filter)
+				.collect(Collectors.toSet());
 	}
 
 	/**

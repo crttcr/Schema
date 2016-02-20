@@ -73,8 +73,7 @@ public class ModelManagerBasic
 	@Override
 	public DModel getDModel(DType type)
 	{
-		if (type == null)
-			return null;
+		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
 		return documents.get(type);
 	}
@@ -82,8 +81,7 @@ public class ModelManagerBasic
 	@Override
 	public EModel getEModel(EType type)
 	{
-		if (type == null)
-			return null;
+		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
 		return entities.get(type);
 	}
@@ -91,9 +89,9 @@ public class ModelManagerBasic
 	@Override
 	public RModel getRModel(RType type)
 	{
-		if (type == null)
-			return null;
+		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
 		return relationships.get(type);
 	}
+	
 }
