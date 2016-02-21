@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import xivvic.model.api.PContainer;
@@ -64,13 +65,15 @@ public class PContainerStatic
 	}
 
 	@Override
-	public Set<PModel> requiredProperties()
+	public Set<String> requiredPropertyKeys()
 	{
 		PModelPredicate filter = new PropertyRequired();
+		Function<PModel, String> map = (m) -> { return m.key(); };
 			
 		return properties.values()
 				.stream()
 				.filter(filter)
+				.map(map)
 				.collect(Collectors.toSet());
 	}
 

@@ -1,7 +1,8 @@
 package xivvic.model.api;
 
 /**
- * This is used to define an characteristics of an edge connecting two vertices.
+ * This is used to define an characteristics of a relationship between two
+ * model elements.
  * 
  * @author Reid
  *

@@ -51,9 +51,9 @@ public abstract class ModelWithProperties
 		return pc.properties(test);
 	}
 
-	public Set<PModel> requiredProperties()
+	public Set<String> requiredPropertyKeys()
 	{
-		return pc.requiredProperties();
+		return pc.requiredPropertyKeys();
 	}
 
 	@Override

@@ -49,10 +49,10 @@ public interface PContainer
 	public List<PModel> properties(PModelPredicate predicate);
 	
 	/**
-	 * Returns the property definitions for all required properties. This is a convenience
-	 * method that calls properties(test) with an IsRequired predicate.
+	 * Returns the property keys for all required properties. This is a convenience
+	 * method that calls properties(test) with an IsRequired predicate and extracts keys.
 	 * 
-	 * @return all required property models or an empty set if there are none.
+	 * @return all required property keys or an empty set if there are none.
 	 */
-	public Set<PModel> requiredProperties();
+	public Set<String> requiredPropertyKeys();
 }
