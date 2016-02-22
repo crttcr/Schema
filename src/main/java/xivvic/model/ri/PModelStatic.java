@@ -7,6 +7,14 @@ import java.util.function.Function;
 import xivvic.model.api.PModel;
 import xivvic.model.api.PType;
 
+/**
+ * Immutable class providing the model of a property. Normally I would use AutoValue
+ * for a class such as this, however, AutoValue throws an exception when I try to use
+ * it. Presumably it's because PModel specializes the return type in ModelBase.getElementType()
+ * and that isn't covered by AutoValue.
+ * 
+ * @author reid.dev
+ */
 public class PModelStatic
 	extends ModelBase
 	implements PModel
@@ -21,27 +29,27 @@ public class PModelStatic
 	public PModelStatic(PType type)
 	{
 		super(type);
-		
 	}
 
-	public String name() { return name; }
-	public String key() { return key; }
-	public boolean unique() {return unique; }
-	public boolean required() {return required; }
+	public String name()      { return name; }
+	public String key()       { return key; }
+	public boolean unique()   { return unique; }
+	public boolean required() { return required; }
 
 	public Function<Object, String> object2String() { return o2s; }
-
 	public Function<String, Object> string2Object() { return s2o; }
-	public PType modelElementType() { return (PType) super.modelElementType(); }
 
+
+	public PType modelElementType() { return (PType) super.modelElementType(); }
 	
 	public static Builder builder(PType type)
 	{
 		PModelStatic.Builder builder = new PModelStatic.Builder(type);
 		
-		// Set reasonable default values
+		// Set reasonable, default values
 		//
-		// TODO:
+		builder.required(false);
+		builder.unique(false);
 		
 		return builder;
 	}
@@ -98,6 +106,10 @@ public class PModelStatic
 		{
 			Objects.requireNonNull(instance.name, "PModel.name, a required field, was not provided during construction.");
 			
+			// Ensure that there is always a key value. Not providing a name will blow up the attempt to
+			// build, but not providing a key causes the name to be used as the key. It is assumed that this
+			// will be unique, but there is no mechanism to check across different properties.
+			//
 			if (instance.key == null)
 				instance.key = instance.name;
 			
