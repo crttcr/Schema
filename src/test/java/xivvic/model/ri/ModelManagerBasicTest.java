@@ -41,9 +41,9 @@ public class ModelManagerBasicTest
 		// Act
 		//
 		List<EModel>  e_list = mm.entityModels();
-		RModel       r_model = mm.getRModel(TestFixtureUtil.RelationshipType.USER_2_GROUP);
-		EModel       e_model = mm.getEModel(TestFixtureUtil.EntityType.EVENT);
-		DModel       d_model = mm.getDModel(TestFixtureUtil.DocumentType.IMAGE);
+		RModel       r_model = mm.getRModel(TestFixtureUtil.RelationshipType.USER_2_GROUP.name());
+		EModel       e_model = mm.getEModel(TestFixtureUtil.EntityType.EVENT.name());
+		DModel       d_model = mm.getDModel(TestFixtureUtil.DocumentType.IMAGE.name());
 		
 		// Assert
 		//
@@ -84,7 +84,7 @@ public class ModelManagerBasicTest
 		//
 		mm.registerModel(model);
 		mm.registerModel(r_model);
-		EModel returned = mm.getEModel(model.modelElementType());
+		EModel returned = mm.getEModel(model.modelElementType().name());
 		
 		// Assert
 		//
@@ -142,7 +142,7 @@ public class ModelManagerBasicTest
 		// Act
 		//
 		mm.registerModel(model);
-		RModel returned = mm.getRModel(model.modelElementType());
+		RModel returned = mm.getRModel(model.modelElementType().name());
 		
 		// Assert
 		//

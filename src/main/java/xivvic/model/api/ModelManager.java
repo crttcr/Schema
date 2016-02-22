@@ -20,9 +20,15 @@ public interface ModelManager
 // public List<EType> eTypes();
 
 	public List<EModel> entityModels();
-	public DModel getDModel(DType type);
-	public EModel getEModel(EType type);
-	public RModel getRModel(RType type);
+	public List<DModel> documentModels();
+	public List<RModel> relationshipModels();
+	public DModel getDModel(String type_name);
+	public EModel getEModel(String type_name);
+	public RModel getRModel(String type_name);
+
+//	public DModel getDModel(DType type);
+//	public EModel getEModel(EType type);
+//	public RModel getRModel(RType type);
 	
 	// This shouln't be part of the interface.
 	//

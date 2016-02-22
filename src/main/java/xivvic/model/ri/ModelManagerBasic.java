@@ -20,9 +20,9 @@ import xivvic.model.api.RType;
 public class ModelManagerBasic
 	implements ModelManager
 {
-	private Map<EType, EModel>       entities = new HashMap<>();
-	private Map<DType, DModel>      documents = new HashMap<>();
-	private Map<RType, RModel>  relationships = new HashMap<>();
+	private Map<String, EModel>       entities = new HashMap<>();
+	private Map<String, DModel>      documents = new HashMap<>();
+	private Map<String, RModel>  relationships = new HashMap<>();
 	
 	public ModelManagerBasic()
 	{
@@ -37,24 +37,21 @@ public class ModelManagerBasic
 		
 		if (type instanceof EType)
 		{
-			EType   cast_type = (EType) type;
 			EModel cast_model = (EModel) me;
 
-			entities.put(cast_type, cast_model);
+			entities.put(type.name(), cast_model);
 		}
 		else if (type instanceof DType)
 		{
-			DType   cast_type = (DType) type;
 			DModel cast_model = (DModel) me;
 
-			documents.put(cast_type, cast_model);
+			documents.put(type.name(), cast_model);
 		}
 		else if (type instanceof RType)
 		{
-			RType   cast_type = (RType) type;
 			RModel cast_model = (RModel) me;
 
-			relationships.put(cast_type, cast_model);
+			relationships.put(type.name(), cast_model);
 		}
 		else
 		{
@@ -65,13 +62,7 @@ public class ModelManagerBasic
 		
 		
 	@Override
-	public List<EModel> entityModels()
-	{
-		return new ArrayList<EModel>(entities.values());
-	}
-
-	@Override
-	public DModel getDModel(DType type)
+	public DModel getDModel(String type)
 	{
 		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
@@ -79,7 +70,7 @@ public class ModelManagerBasic
 	}
 
 	@Override
-	public EModel getEModel(EType type)
+	public EModel getEModel(String type)
 	{
 		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
@@ -87,11 +78,32 @@ public class ModelManagerBasic
 	}
 
 	@Override
-	public RModel getRModel(RType type)
+	public RModel getRModel(String type)
 	{
 		Objects.requireNonNull(type, "Cannot retrieve model for null type");
 		
 		return relationships.get(type);
+	}
+
+
+	@Override
+	public List<DModel> documentModels()
+	{
+		return new ArrayList<DModel>(documents.values());
+	}
+
+
+	@Override
+	public List<EModel> entityModels()
+	{
+		return new ArrayList<EModel>(entities.values());
+	}
+
+
+	@Override
+	public List<RModel> relationshipModels()
+	{
+		return new ArrayList<RModel>(relationships.values());
 	}
 	
 }
