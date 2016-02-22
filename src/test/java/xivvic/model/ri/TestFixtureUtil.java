@@ -105,8 +105,8 @@ public class TestFixtureUtil
 	public static EModel buildEmptyEntityModel(EType type)
 	{
 		List<PModel>    list = new ArrayList<>();
-		PContainer container = new PContainerStatic(list);
-		EModel         model = new EModelStatic(type, container, null);
+		PContainer container = new PContainerStatic(list, null);
+		EModel         model = new EModelStatic(type, container);
 		
 		return model;
 	}
@@ -153,8 +153,8 @@ public class TestFixtureUtil
 		list.add(d);
 		list.add(e);
 		
-		PContainer pc = new PContainerStatic(list);
-		EModel  model = new EModelStatic(EntityType.USER, pc, a);
+		PContainer pc = new PContainerStatic(list, a);
+		EModel  model = new EModelStatic(EntityType.USER, pc);
 		
 		return model;
 	}
@@ -180,8 +180,8 @@ public class TestFixtureUtil
 		list.add(a);
 		list.add(b);
 		
-		PContainer pc = new PContainerStatic(list);
-		EModel  model = new EModelStatic(EntityType.GROUP, pc, a);
+		PContainer pc = new PContainerStatic(list, a);
+		EModel  model = new EModelStatic(EntityType.GROUP, pc);
 		
 		return model;
 	}
@@ -196,7 +196,7 @@ public class TestFixtureUtil
 		List<PModel> list = new ArrayList<>();
 		list.add(color_prop);
 		
-		PContainer pc = new PContainerStatic(list);
+		PContainer pc = new PContainerStatic(list, null);
 		RType  r_type = RelationshipType.USER_2_GROUP;
 
 		RModelStatic.Builder builder = RModelStatic.builder(r_type, pc);

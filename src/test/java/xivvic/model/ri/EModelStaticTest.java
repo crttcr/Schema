@@ -32,9 +32,9 @@ public class EModelStaticTest
 		list.add(TestFixtureUtil.buildNameProperty());
 		list.add(TestFixtureUtil.buildColorProperty());
 		
-		PContainer container = new PContainerStatic(list);
+		PContainer container = new PContainerStatic(list, id);
 		EType           type = TestFixtureUtil.EntityType.GROUP;
-		entity_model         = new EModelStatic(type, container, id);
+		entity_model         = new EModelStatic(type, container);
 	}
 
 	@After

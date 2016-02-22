@@ -55,4 +55,13 @@ public interface PContainer
 	 * @return all required property keys or an empty set if there are none.
 	 */
 	public Set<String> requiredPropertyKeys();
+	
+	/**
+	 * If this PContainer has a property which provides the identity of each element in the
+	 * model, this method will provide the model for that property. If not, this method should
+	 * return null.
+	 * 
+	 * @return the PModel of the property providing identity or null if one does not exist.
+	 */
+	public PModel identityProperty();
 }

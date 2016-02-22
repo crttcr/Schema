@@ -4,6 +4,7 @@ package xivvic.model.ri;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,13 +17,25 @@ public class PContainerStatic
 	implements PContainer
 {
 	private final Map<String, PModel> properties;
+	private final PModel id_property;
 	
-   public PContainerStatic(List<PModel> properties)
+   public PContainerStatic(List<PModel> properties, PModel id_property)
    {
-   	if (properties == null)
-   		throw new IllegalArgumentException("Property list required in constructor for schema");
+   	Objects.requireNonNull(properties, "Property list required in constructor for schema");
    	
    	this.properties = new HashMap<String, PModel>();
+   	this.id_property = id_property;
+   	
+   	// Ensure that if there is an ID property, then it is contained in list of properties
+   	//
+   	if (id_property != null)
+   	{
+   		if (! properties.contains(id_property))
+   			throw new IllegalArgumentException("ID Property must be contained in the property list provided to this container");
+
+   		if (id_property.unique() == false)
+   			throw new IllegalArgumentException("Identity property must be unique");
+  	}
    	
    	for (PModel p : properties)
    	{
@@ -100,5 +113,11 @@ public class PContainerStatic
 		}
 		
 		return p;
+	}
+
+	@Override
+	public PModel identityProperty()
+	{
+		return id_property;
 	}
 }

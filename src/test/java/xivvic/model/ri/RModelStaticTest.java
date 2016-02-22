@@ -27,7 +27,7 @@ public class RModelStaticTest
 	public void setUp() throws Exception
 	{
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 
@@ -51,7 +51,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		
@@ -70,7 +70,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);
@@ -93,7 +93,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);
@@ -193,7 +193,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);
@@ -218,7 +218,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);
@@ -243,7 +243,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);
@@ -268,7 +268,7 @@ public class RModelStaticTest
 		// Arrange
 		//
 		List<PModel>            list = TestFixtureUtil.build3PropertyList();
-		PContainer                pc = new PContainerStatic(list);
+		PContainer                pc = new PContainerStatic(list, null);
 		RType                   type = TestFixtureUtil.RelationshipType.USER_2_GROUP;
 		RModelStatic.Builder builder = RModelStatic.builder(type, pc);
 		EModel                entity = TestFixtureUtil.buildEmptyEntityModel(TestFixtureUtil.EntityType.EVENT);

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import xivvic.model.api.ModelElement;
 import xivvic.model.api.ModelElementType;
+import xivvic.model.api.PModel;
 
 public abstract class ModelBase
 	implements ModelElement
@@ -24,5 +25,7 @@ public abstract class ModelBase
 	{
 		return type;
 	}
+	
+	public abstract PModel identityProperty();
 	
 }

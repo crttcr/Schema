@@ -27,11 +27,13 @@ public class PContainerStaticTest
 	{
 		List<PModel> list = new ArrayList<>();
 		
-		list.add(TestFixtureUtil.buildIdProperty());
+		PModel p_id = TestFixtureUtil.buildIdProperty();
+		
+		list.add(p_id);
 		list.add(TestFixtureUtil.buildNameProperty());
 		list.add(TestFixtureUtil.buildColorProperty());
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, p_id);
 	}
 
 	@After
@@ -65,7 +67,7 @@ public class PContainerStaticTest
 		//
 		List<PModel> list = new ArrayList<>();
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -91,7 +93,7 @@ public class PContainerStaticTest
 		list.add( PModelStatic.builder(type).name("n.2").key("k.2").build());
 		list.add( PModelStatic.builder(type).name("n.3").key("k.3").build());
 			
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -115,7 +117,7 @@ public class PContainerStaticTest
 		//
 		List<PModel> list = new ArrayList<>();
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -136,7 +138,7 @@ public class PContainerStaticTest
 		//
 		List<PModel> list = new ArrayList<>();
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -161,7 +163,7 @@ public class PContainerStaticTest
 		list.add( PModelStatic.builder(type).name("n.2").key("k.2").required(true).build());
 		list.add( PModelStatic.builder(type).name("n.3").key("k.3").required(false).build());
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -189,7 +191,7 @@ public class PContainerStaticTest
 		list.add( PModelStatic.builder(type).name("n.2").key("k.2").required(true).build());
 		list.add( PModelStatic.builder(type).name("n.3").key("k.3").required(false).build());
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -210,7 +212,7 @@ public class PContainerStaticTest
 		List<PModel>   list = new ArrayList<>();
 		PModelPredicate   p = new PropertyRequired();
 		
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act
@@ -235,7 +237,7 @@ public class PContainerStaticTest
 		list.add( PModelStatic.builder(type).name("n.2").key("k.2").build());
 		list.add( PModelStatic.builder(type).name("n.3").key("k.3").build());
 			
-		container = new PContainerStatic(list);
+		container = new PContainerStatic(list, null);
 		
 		
 		// Act

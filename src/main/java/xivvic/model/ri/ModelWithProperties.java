@@ -34,7 +34,6 @@ public abstract class ModelWithProperties
 	{
 		return type;
 	}
-
 	
 	public List<String> propertyNames()
 	{
@@ -61,4 +60,11 @@ public abstract class ModelWithProperties
 	{
 		return pc.property(key);
 	}
+
+	@Override
+	public PModel identityProperty()
+	{
+		return pc.identityProperty();
+	}
+
 }

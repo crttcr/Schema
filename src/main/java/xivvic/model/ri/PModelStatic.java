@@ -105,4 +105,14 @@ public class PModelStatic
 		}
 	}
 
+	/** 
+	 * There is no identityProperty for a Property.
+	 * This method always returns null.
+	 */
+	@Override
+	public PModel identityProperty()
+	{
+		return null;
+	}
+
 }
