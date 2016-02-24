@@ -12,7 +12,16 @@ import xivvic.model.api.PType;
 import xivvic.model.api.RModel;
 import xivvic.model.api.RType;
 
-public class TestFixtureUtil
+/**
+ * Purposefully package private class visibility because the Enums defined
+ * here are only for testing purposes. An application using this domain model
+ * will have its own definitions for Entities / Documents / Relationships / and Properties
+ * and these definitions would potentially conflict.
+ * 
+ * @author reid.dev
+ *
+ */
+class TestFixtureUtil
 {
 	public static final String PROP_ID_NAME        = "id";
 	public static final String PROP_NAME_NAME      = "name";
