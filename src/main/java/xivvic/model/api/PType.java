@@ -27,4 +27,7 @@ package xivvic.model.api;
 public interface PType
 	extends ModelElementType
 {
+	// Returns true if this type is quoted in SQL
+	//
+	boolean isQuotedType();
 }

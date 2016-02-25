@@ -46,9 +46,31 @@ class TestFixtureUtil
 	public enum PropertyType
 	implements PType
 	{
-		STRING,
-		INTEGER,
-		DATE,
+		STRING(true),
+		INTEGER(false),
+		DATE(true),
+		;
+
+		/* 
+	    * This constructor is private.
+	    * Legal to declare a non-private constructor, but not legal
+	    * to use such a constructor outside the enum.
+	    * Can never use "new" with any enum, even inside the enum 
+	    * class itself.
+	    */
+	    private PropertyType(boolean quoted)
+	    {
+	      //cannot call super ctor here
+	      //calls to "this" ctors allowed
+	      this.isQuoted = quoted;
+	    }
+
+	    public final boolean isQuotedType() 
+	    {
+	      return isQuoted;
+	    }
+
+	    private final boolean isQuoted;	
 	}
 
 	public enum DocumentType
