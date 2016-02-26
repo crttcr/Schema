@@ -32,7 +32,7 @@ public class PModelStatic
 	}
 
 	public String name()      { return name; }
-	public String key()       { return key; }
+	public String key()       { return key.toUpperCase(); }  // Safe from NPE b/c of builder's logic
 	public boolean unique()   { return unique; }
 	public boolean required() { return required; }
 
