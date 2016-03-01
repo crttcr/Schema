@@ -14,7 +14,9 @@ import java.util.function.Function;
 public interface PModel
 	extends ModelElement
 {
-	Comparator<? super PModel> COMPARE_BY_ORDINAL = (pm1, pm2) -> Integer.compare(pm1.ordinal().intValue(), pm2.ordinal().intValue());
+	Comparator<? super PModel> COMPARE_BY_KEY     = (p1, p2) -> p1. key().compareTo(p2. key());
+	Comparator<? super PModel> COMPARE_BY_NAME    = (p1, p2) -> p1.name().compareTo(p2.name());
+	Comparator<? super PModel> COMPARE_BY_ORDINAL = (p1, p2) -> Integer.compare(p1.ordinal().intValue(), p2.ordinal().intValue());
 	
 	public String name();
 	public String key();
