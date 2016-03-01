@@ -19,6 +19,10 @@ public class PContainerStatic
 	private final Map<String, PModel> properties;
 	private final PModel id_property;
 	
+	// Used to keep track of ordinal values while defining properties
+	//
+	private int ordinal_counter = 0;
+	
    public PContainerStatic(List<PModel> properties, PModel id_property)
    {
    	Objects.requireNonNull(properties, "Property list required in constructor for schema");
@@ -39,6 +43,18 @@ public class PContainerStatic
    	
    	for (PModel p : properties)
    	{
+   		// Make sure every property has an ordinal value. Incrementing in entry order
+   		// and resetting whenever an encountered property has its own ordinal value.
+   		//
+   		Integer ord = p.ordinal();
+   		if (ord != null)
+   		{
+   			ordinal_counter = ord.intValue();
+   		}
+   		else
+   		{
+   			p = new PModelOrdinalWrapper(p, ++ordinal_counter);
+   		}
    		this.properties.put(p.key(), p);
    	}
    }
@@ -47,6 +63,7 @@ public class PContainerStatic
 	{
 		return properties.values()
 				.stream()
+				.sorted(PModel.COMPARE_BY_ORDINAL)
 				.map(p -> p.name())
 				.collect(Collectors.toList());
 	}
@@ -55,6 +72,7 @@ public class PContainerStatic
 	{
 		return properties.values()
 				.stream()
+				.sorted(PModel.COMPARE_BY_ORDINAL)
 				.map(p -> p.key())
 				.collect(Collectors.toList());
 	}
@@ -73,6 +91,7 @@ public class PContainerStatic
 			
 		return properties.values()
 				.stream()
+				.sorted(PModel.COMPARE_BY_ORDINAL)
 				.filter(test)
 				.collect(Collectors.toList());
 	}
@@ -85,6 +104,7 @@ public class PContainerStatic
 			
 		return properties.values()
 				.stream()
+				.sorted(PModel.COMPARE_BY_ORDINAL)
 				.filter(filter)
 				.map(map)
 				.collect(Collectors.toSet());

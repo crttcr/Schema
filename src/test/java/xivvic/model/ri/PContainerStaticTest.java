@@ -53,10 +53,12 @@ public class PContainerStaticTest
 		
 		// Assert
 		//
+		// (Relies on ordering provided by PContainer
+		//
 		assertEquals(3, names.size());
-		assertTrue(names.contains(TestFixtureUtil.PROP_ID_NAME));
-		assertTrue(names.contains(TestFixtureUtil.PROP_NAME_NAME));
-		assertTrue(names.contains(TestFixtureUtil.PROP_COLOR_NAME));
+		assertTrue(names.get(0).equals(TestFixtureUtil.PROP_ID_NAME));
+		assertTrue(names.get(1).equals(TestFixtureUtil.PROP_NAME_NAME));
+		assertTrue(names.get(2).equals(TestFixtureUtil.PROP_COLOR_NAME));
 		assertFalse(names.contains("This_name_should_not_exist"));
 	}
 
@@ -89,9 +91,9 @@ public class PContainerStaticTest
 		List<PModel> list = new ArrayList<>();
 		PType        type = TestFixtureUtil.PropertyType.STRING;
 		
-		list.add( PModelStatic.builder(type).name("n.1").key("k.1").build());
-		list.add( PModelStatic.builder(type).name("n.2").key("k.2").build());
-		list.add( PModelStatic.builder(type).name("n.3").key("k.3").build());
+		list.add( PModelStatic.builder(type).name("n.1").key("K.1").build());
+		list.add( PModelStatic.builder(type).name("n.2").key("K.2").build());
+		list.add( PModelStatic.builder(type).name("n.3").key("K.3").build());
 			
 		container = new PContainerStatic(list, null);
 		
@@ -102,12 +104,14 @@ public class PContainerStaticTest
 		
 		// Assert
 		//
+		// (Relies on ordering from PContainer
+		//
 		assertNotNull(keys);
 		assertEquals(3, keys.size());
-		assertTrue(keys.contains("k.1"));
-		assertTrue(keys.contains("k.2"));
-		assertTrue(keys.contains("k.3"));
-		assertFalse(keys.contains("This_key_should_not_exist"));
+		assertTrue(keys.get(0).equals("K.1"));
+		assertTrue(keys.get(1).equals("K.2"));
+		assertTrue(keys.get(2).equals("K.3"));
+		assertFalse(keys.contains("This_key_should_not_exist".toUpperCase()));
 	}
 
 	@Test
@@ -159,9 +163,9 @@ public class PContainerStaticTest
 		PModelPredicate   p = new PropertyRequired();
 		PType        type = TestFixtureUtil.PropertyType.STRING;
 		
-		list.add( PModelStatic.builder(type).name("n.1").key("k.1").required(false).build());
-		list.add( PModelStatic.builder(type).name("n.2").key("k.2").required(true).build());
-		list.add( PModelStatic.builder(type).name("n.3").key("k.3").required(false).build());
+		list.add( PModelStatic.builder(type).name("n.1").key("K.1").required(false).build());
+		list.add( PModelStatic.builder(type).name("n.2").key("K.2").required(true).build());
+		list.add( PModelStatic.builder(type).name("n.3").key("K.3").required(false).build());
 		
 		container = new PContainerStatic(list, null);
 		
@@ -176,7 +180,7 @@ public class PContainerStaticTest
 		assertNotNull(props);
 		assertNotNull(prop);
 		assertEquals(1, props.size());
-		assertTrue("k.2".equals(prop.key()));
+		assertTrue("K.2".equals(prop.key()));
 	}
 	
 	@Test
@@ -187,9 +191,9 @@ public class PContainerStaticTest
 		List<PModel>   list = new ArrayList<>();
 		PType          type = TestFixtureUtil.PropertyType.STRING;
 		
-		list.add( PModelStatic.builder(type).name("n.1").key("k.1").required(false).build());
-		list.add( PModelStatic.builder(type).name("n.2").key("k.2").required(true).build());
-		list.add( PModelStatic.builder(type).name("n.3").key("k.3").required(false).build());
+		list.add( PModelStatic.builder(type).name("n.1").key("K.1").required(false).build());
+		list.add( PModelStatic.builder(type).name("n.2").key("K.2").required(true).build());
+		list.add( PModelStatic.builder(type).name("n.3").key("K.3").required(false).build());
 		
 		container = new PContainerStatic(list, null);
 		
@@ -233,18 +237,18 @@ public class PContainerStaticTest
 		List<PModel> list = new ArrayList<>();
 		PType        type = TestFixtureUtil.PropertyType.STRING;
 		
-		list.add( PModelStatic.builder(type).name("n.1").key("k.1").build());
-		list.add( PModelStatic.builder(type).name("n.2").key("k.2").build());
-		list.add( PModelStatic.builder(type).name("n.3").key("k.3").build());
+		list.add( PModelStatic.builder(type).name("n.1").key("K.1").build());
+		list.add( PModelStatic.builder(type).name("n.2").key("K.2").build());
+		list.add( PModelStatic.builder(type).name("n.3").key("K.3").build());
 			
 		container = new PContainerStatic(list, null);
 		
 		
 		// Act
 		//
-		PModel m1 = container.property("k.1");
-		PModel m2 = container.property("k.2");
-		PModel mx = container.property("k.x");
+		PModel m1 = container.property("K.1");
+		PModel m2 = container.property("K.2");
+		PModel mx = container.property("K.X");
 		
 		// Assert
 		//
@@ -252,8 +256,8 @@ public class PContainerStaticTest
 		assertNotNull(m2);
 		assertNull(mx);
 
-		assertTrue(m1.key().equals("k.1"));
-		assertTrue(m2.key().equals("k.2"));
+		assertTrue(m1.key().equals("K.1"));
+		assertTrue(m2.key().equals("K.2"));
 	}
 
 	@Test(expected=IllegalArgumentException.class)

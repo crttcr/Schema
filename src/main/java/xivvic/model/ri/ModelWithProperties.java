@@ -67,4 +67,22 @@ public abstract class ModelWithProperties
 		return pc.identityProperty();
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder  sb = new StringBuilder();
+		String       name = type.name();
+		List<String> keys = propertyKeys();
+		int         count = keys.size();
+		String key_string = String.join(":", keys);
+
+		
+		sb.append(name);
+		sb.append("(").append(count).append(") [");
+		sb.append(key_string);
+		sb.append("]");
+		
+		return sb.toString();
+	}
+	
 }

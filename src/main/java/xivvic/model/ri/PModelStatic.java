@@ -23,6 +23,8 @@ public class PModelStatic
 	private String key;
 	private boolean unique;
 	private boolean required;
+	private Integer ordinal;
+	
 	private Function<Object, String> o2s;
 	private Function<String, Object> s2o;
 	
@@ -31,14 +33,14 @@ public class PModelStatic
 		super(type);
 	}
 
-	public String name()      { return name; }
-	public String key()       { return key.toUpperCase(); }  // Safe from NPE b/c of builder's logic
-	public boolean unique()   { return unique; }
-	public boolean required() { return required; }
+	public String        name() { return name; }
+	public String         key() { return key.toUpperCase(); }  // Safe from NPE b/c of builder's logic
+	public boolean     unique() { return unique; }
+	public boolean   required() { return required; }
+	public Integer    ordinal() { return ordinal; }
 
 	public Function<Object, String> object2String() { return o2s; }
 	public Function<String, Object> string2Object() { return s2o; }
-
 
 	public PType modelElementType() { return (PType) super.modelElementType(); }
 	
@@ -125,6 +127,29 @@ public class PModelStatic
 	public PModel identityProperty()
 	{
 		return null;
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder  sb = new StringBuilder();
+
+		sb.append("name:").append(name);
+		sb.append(" key:").append(key);
+		sb.append(" unique:").append( unique);
+		sb.append(" required:").append( required);
+		sb.append(" ordinal:");
+		if (ordinal == null)
+			sb.append(" N/A");
+		else
+			sb.append(ordinal);
+		
+		if (o2s != null)
+			sb.append("+o2s");
+		if (s2o != null)
+			sb.append("+s2o");
+		
+		return sb.toString();
 	}
 
 }
