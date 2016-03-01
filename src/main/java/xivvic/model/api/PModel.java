@@ -4,10 +4,11 @@ import java.util.Comparator;
 import java.util.function.Function;
 
 /*
- * This class represents metadata about a single property.
- * 
- * It does not extend the ModelElement interface because other model elements
- * are 
+ * This class represents details about a single property, such as it's name,
+ * and a unique key for the property. It also defines the presence or absence
+ * of constraints such as whether or not the values of this property are unique
+ * (within some undefined aggregate) or are required to be populated. This 
+ * class does not contain the value of its property, only property metadata.
  * 
  */
 
